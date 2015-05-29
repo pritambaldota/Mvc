@@ -1,0 +1,9 @@
+﻿@using MvcSample.Web
+@model List<ActionListEntry>
+
+@foreach (var entry in Model)
+{
+    <div>
+        @entry.Action.DisplayName - @string.Join(" ", entry.Routes)
+    </div>
+}
