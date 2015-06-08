@@ -169,6 +169,27 @@ namespace Microsoft.AspNet.Mvc.ModelBinding
             Assert.Equal(outValue, MyEnum.Value1);
         }
 
+        [Theory]
+        [InlineData(1)]
+        [InlineData(1L)]
+        [InlineData(1U)]
+        [InlineData(1UL)]
+        [InlineData((byte)1)]
+        [InlineData((sbyte)1)]
+        [InlineData((short)1)]
+        [InlineData((ushort)1)]
+        public void ConvertToReturnsValueIfArrayElementIsAnyIntegerTypeAndDestinationTypeIsEnum(object val)
+        {
+            // Arrange
+            var vpr = new ValueProviderResult(new object[] { val }, null, CultureInfo.InvariantCulture);
+
+            // Act
+            var outValue = vpr.ConvertTo(typeof(MyEnum));
+
+            // Assert
+            Assert.Equal(outValue, MyEnum.Value1);
+        }
+
         [Fact]
         public void ConvertToReturnsValueIfArrayElementIsStringValueAndDestinationTypeIsEnum()
         {
